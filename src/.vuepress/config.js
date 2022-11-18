@@ -4,6 +4,7 @@ module.exports = {
   title: "Huff Language",
   description: description,
   //homepage: "http://docs.huff.sh/",
+  base: '/huff-docs/',
 
   head: [
     ["meta", { name: "theme-color", content: "#c70202" }],
