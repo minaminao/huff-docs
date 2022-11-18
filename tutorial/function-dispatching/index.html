@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Function Dispatching | Huff Language</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="Documentation for the Huff Language">
+    <meta name="theme-color" content="#c70202">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/huff-docs/assets/css/0.styles.119aef57.css" as="style"><link rel="preload" href="/huff-docs/assets/js/app.52368d7d.js" as="script"><link rel="preload" href="/huff-docs/assets/js/2.da23fb4f.js" as="script"><link rel="preload" href="/huff-docs/assets/js/21.cea4001d.js" as="script"><link rel="prefetch" href="/huff-docs/assets/js/10.10b20d65.js"><link rel="prefetch" href="/huff-docs/assets/js/11.0a86e14c.js"><link rel="prefetch" href="/huff-docs/assets/js/12.dc56caf4.js"><link rel="prefetch" href="/huff-docs/assets/js/13.d80e3d66.js"><link rel="prefetch" href="/huff-docs/assets/js/14.f739287c.js"><link rel="prefetch" href="/huff-docs/assets/js/15.1d27754b.js"><link rel="prefetch" href="/huff-docs/assets/js/16.b8ce2f87.js"><link rel="prefetch" href="/huff-docs/assets/js/17.fc855309.js"><link rel="prefetch" href="/huff-docs/assets/js/18.cb791716.js"><link rel="prefetch" href="/huff-docs/assets/js/19.e1225b3f.js"><link rel="prefetch" href="/huff-docs/assets/js/20.a0343151.js"><link rel="prefetch" href="/huff-docs/assets/js/22.bc6ece12.js"><link rel="prefetch" href="/huff-docs/assets/js/23.7475dd5b.js"><link rel="prefetch" href="/huff-docs/assets/js/24.eaa45c75.js"><link rel="prefetch" href="/huff-docs/assets/js/25.b5e7e06d.js"><link rel="prefetch" href="/huff-docs/assets/js/3.ccc119cc.js"><link rel="prefetch" href="/huff-docs/assets/js/4.0afa7f3a.js"><link rel="prefetch" href="/huff-docs/assets/js/5.75baa7dd.js"><link rel="prefetch" href="/huff-docs/assets/js/6.5a1f7be2.js"><link rel="prefetch" href="/huff-docs/assets/js/7.bffed0f4.js"><link rel="prefetch" href="/huff-docs/assets/js/8.ef392763.js"><link rel="prefetch" href="/huff-docs/assets/js/9.836eefc0.js">
+    <link rel="stylesheet" href="/huff-docs/assets/css/0.styles.119aef57.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/huff-docs/" class="home-link router-link-active"><!----> <span class="site-name">Huff Language</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/huff-docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/huff-docs/get-started/overview/" class="nav-link">
+  Get Started
+</a></div><div class="nav-item"><a href="/huff-docs/tutorial/overview/" class="nav-link">
+  Tutorials
+</a></div><div class="nav-item"><a href="/huff-docs/style-guide/overview/" class="nav-link">
+  Style Guide
+</a></div><div class="nav-item"><a href="/huff-docs/resources/overview/" class="nav-link">
+  Resources
+</a></div><div class="nav-item"><a href="/huff-docs/contribute/overview/" class="nav-link">
+  Contribute
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/huff-docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/huff-docs/get-started/overview/" class="nav-link">
+  Get Started
+</a></div><div class="nav-item"><a href="/huff-docs/tutorial/overview/" class="nav-link">
+  Tutorials
+</a></div><div class="nav-item"><a href="/huff-docs/style-guide/overview/" class="nav-link">
+  Style Guide
+</a></div><div class="nav-item"><a href="/huff-docs/resources/overview/" class="nav-link">
+  Resources
+</a></div><div class="nav-item"><a href="/huff-docs/contribute/overview/" class="nav-link">
+  Contribute
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Tutorials</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/huff-docs/tutorial/overview/" class="sidebar-link">Overview</a></li><li><a href="/huff-docs/tutorial/evm-basics/" class="sidebar-link">Understanding the EVM</a></li><li><a href="/huff-docs/tutorial/the-basics/" class="sidebar-link">The Basics</a></li><li><a href="/huff-docs/tutorial/hello-world/" class="sidebar-link">Hello, world!</a></li><li><a href="/huff-docs/tutorial/simple-storage/" class="sidebar-link">Simple Storage</a></li><li><a href="/huff-docs/tutorial/function-dispatching/" aria-current="page" class="active sidebar-link">Function Dispatching</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/function-dispatching/#what-is-the-problem" class="sidebar-link">What is the problem?</a></li><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/function-dispatching/#linear-dispatching" class="sidebar-link">Linear Dispatching</a></li><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/function-dispatching/#binary-search-dispatching" class="sidebar-link">Binary Search Dispatching</a></li><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/function-dispatching/#fallback-functions" class="sidebar-link">Fallback functions</a></li></ul></li><li><a href="/huff-docs/tutorial/huff-testing/" class="sidebar-link">Testing Huff with Foundry</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="function-dispatching"><a href="#function-dispatching" class="header-anchor">#</a> Function Dispatching</h1> <p>関数ディスパッチは、Huff の契約にとって基本的なものです。Solidity や Vyper とは異なり、Huff は関数のディスパッチを抽象化しません。この節では、他の言語ではディスパッチがどのように行われるのか、そして Huff ではどのように行うのかを説明します。</p> <h2 id="what-is-the-problem"><a href="#what-is-the-problem" class="header-anchor">#</a> What is the problem?</h2> <p>evmでは、コントラクトはメッセージを送信することによって対話します。ABI標準は、これらのメッセージをエンコードするための標準的な方法として存在し、関数への入力がどのようにエンコードされるべきかを扱います。この厳格なルールにより、コントラクトは互いに理解しあえるのです。また、ABI標準は、メッセージがどの関数と相互作用するつもりなのかをコントラクトに伝えます。これは、メッセージの最初に4バイトのセレクタをエンコードすることで行われます。この4バイトのセレクタは、関数の署名文字列の<code>keccak</code>の最初の4バイトです。例えば、&quot;myFunction(address,uint256) &quot;という文字列のkeccak256ハッシュは<code>0x451c00ddd225deee9948ba5eca26042a5ea1cc0980e5a5fb0a057f90567af5e0</code>である。つまり、最初の4バイトの<code>0x451c00dd</code>がSolidityが関数のシグネチャとして使用するものです。Solidity でインターフェースを書いたことがある人は、現在のコントラクトに、外国のコントラクトの 4 バイトのセレクタを生成する機能を提供しているだけだということに気づかないかもしれません。</p> <p>この後は、線形ディスパッチと二分探索ディスパッチの2種類のディスパッチについて詳しく説明します。</p> <h2 id="linear-dispatching"><a href="#linear-dispatching" class="header-anchor">#</a> Linear Dispatching</h2> <p>上記を読んで、あるいは以前に Huff のコントラクトを読んで、ディスパッチを実行する最もシンプルな方法は - 線形ルックアップであるという直感を身につけたかもしれません。この方法は、calldata メッセージから関数セレクタを抽出し、それをコントラクト内の他の関数と総当り的に比較します。</p> <p>以下の例は、標準的なERC20トークンに対する線形ディスパッチャの外観を示したものです。</p> <div class="language-huff extra-class"><pre class="language-text"><code>
+// Interface
+#define function allowance(address,address) view returns (uint256)
+#define function approve(address,uint256) nonpayable returns ()
+#define function balanceOf(address) view returns (uint256)
+#define function DOMAIN_SEPARATOR() view returns (bytes32)
+#define function nonces(address) view returns (uint256)
+#define function permit(address,address,uint256,uint256,uint8,bytes32,bytes32) nonpayable returns ()
+#define function totalSupply() view returns (uint256)
+#define function transfer(address,uint256) nonpayable returns ()
+#define function transferFrom(address,address,uint256) nonpayable returns ()
+#define function decimals() nonpayable returns (uint256)
+#define function name() nonpayable returns (string)
+#define function symbol() nonpayable returns (string)
+
+// Function Dispatching
+#define macro MAIN() = takes (1) returns (1) {
+    // Identify which function is being called.
+    0x00 calldataload 0xE0 shr          // [func_sig]
+
+    dup1 __FUNC_SIG(permit)             eq permitJump           jumpi
+    dup1 __FUNC_SIG(nonces)             eq noncesJump           jumpi
+
+    dup1 __FUNC_SIG(name)               eq nameJump             jumpi
+    dup1 __FUNC_SIG(symbol)             eq symbolJump           jumpi
+    dup1 __FUNC_SIG(decimals)           eq decimalsJump         jumpi
+    dup1 __FUNC_SIG(DOMAIN_SEPARATOR)   eq domainSeparatorJump  jumpi
+
+    dup1 __FUNC_SIG(totalSupply)        eq totalSupplyJump      jumpi
+    dup1 __FUNC_SIG(balanceOf)          eq balanceOfJump        jumpi
+    dup1 __FUNC_SIG(allowance)          eq allowanceJump        jumpi
+
+    dup1 __FUNC_SIG(transfer)           eq transferJump         jumpi
+    dup1 __FUNC_SIG(transferFrom)       eq transferFromJump     jumpi
+    dup1 __FUNC_SIG(approve)            eq approveJump          jumpi
+
+    // Revert if no match is found.
+    0x00 dup1 revert
+
+    allowanceJump:
+        ALLOWANCE()
+    approveJump:
+        APPROVE()
+    balanceOfJump:
+        BALANCE_OF()
+    decimalsJump:
+        DECIMALS()
+    domainSeparatorJump:
+        DOMAIN_SEPARATOR()
+    nameJump:
+        NAME()
+    noncesJump:
+        NONCES()
+    permitJump:
+        PERMIT()
+    symbolJump:
+        SYMBOL()
+    totalSupplyJump:
+        TOTAL_SUPPLY()
+    transferFromJump:
+        TRANSFER_FROM()
+    transferJump:
+        TRANSFER()
+}
+</code></pre></div><p>ハフコントラクトのほぼすべてで使用する、非常に重要なコードがあります。</p> <div class="language-huff extra-class"><pre class="language-text"><code>0x00 calldataload 0xE0 shr
+</code></pre></div><p>これは4バイトのファンクションセレクタをスタックにロードします。<code>0x00 calldataload</code> は 0 から始まる 32 バイトをスタックにロードします（calldata が 32 バイト未満の場合、ゼロで右詰めされます）。<code>0xE0 shr</code> は calldata を 224 ビット右シフトし、スタックに 24 ビット（4 バイト）残します。</p> <p>これはかなり単純なアプローチに見えますが、ほとんどの契約では、これが最も効果的であることが多いのです。これはひとつの大きな <code>if</code> <code>else if</code> チェーンなので、チェーンの先頭に「ホットファンクション」を配置することで最適化することができます。前方にある関数は呼び出しにかかるガス量が少なくなりますが、関数がチェーンの末端に近づくにつれ、本当に高くつくので注意が必要です。</p> <p>この方法は素朴に見えますが、VyperやSolidity*が線形ディスパッチを実装する方法と全く同じです。もし、より安く呼び出したいのであれば、コントラクトの上位に移動させればいいだけです。</p> <p>* Solidity は、コントラクトに含まれる関数が 4 つ以下の場合にのみ、このメソッドを実装します。</p> <p>実装マクロの後に続く一連のジャンプラベルは何を意味するのか、不思議に思うかもしれません。良いメンタルモデルは、コントラクトの全体が MAIN マクロの中に存在することです。マクロが MAIN 内で参照されていない場合、または MAIN 内で呼び出されるマクロの中にネストされている場合、そのマクロはコントラクトに含まれないことになります。実際には、上記のコントラクトをコンパイルすると、次のようになります。</p> <div class="language- extra-class"><pre class="language-text"><code>0x[dispatcher]&lt;allowanceJumpLabel&gt;[ALLOWANCE MACRO]&lt;approveJumpLabel&gt;[APPROVE MACRO]&lt;balanceOfJump&gt;[BALANCE_OF MACRO] ... &lt;transferFromLabel&gt;[TRANSFER_FROM MACRO]&lt;transferJump&gt;[TRANSFER MACRO]
+</code></pre></div><p>Huffでは、すべてのマクロが1つの長いバイトコード文字列にインライン化されます(これはVyperとSolidityにも当てはまります!)。この性質上、トップレベルのマクロはすべて何らかのエスケープコード(<code>return</code>, <code>stop</code>, <code>revert</code>)で終了させることが重要である。これをしないと、マクロ <em>WILL</em> は、リターン条件が見つかるまで、次にインライン化されたマクロを実行し続けます。</p> <p>例えば、こんな感じです。</p> <div class="language-huff extra-class"><pre class="language-text"><code>#define function returnOne() public returns(uint256)
+#define function returnTwo() public returns(uint256)
+
+/// @notice returns the value one
+#define macro RETURN_ONE() = {
+    0x01 0x00 mstore
+    0x20 0x00 return
+}
+
+/// @notice places the value 2 onto the stack
+#define macro RETURN_TWO() = {
+    0x02
+}
+
+#define macro MAIN() = {
+    0x00 calldataload 0xE0 shr
+
+    // Dispatcher
+    dup1 __FUNC_SIG(returnOne) eq returnOneJump jumpi
+    dup1 __FUNC_SIG(returnTwo) eq returnTwoJump jumpi
+
+    // Macros
+    returnTwo:
+        RETURN_TWO()
+    returnOne:
+        RETURN_ONE()
+}
+</code></pre></div><p>上記のマクロでは、どのようなメッセージが送られてきても、常に値1を返します。マクロ <code>RETURN_TWO</code> は終了しないので、<code>RETURN_ONE</code> の実行にロールオーバーされ、値 1 を返して終了します。有効でない関数のシグネチャから保護するためのガードがないため、たとえディスパッチャの何もマッチしないメッセージであっても、値1を返します。</p> <p>有効な関数セレクタが見つからない場合の対処法として、ディスパッチャとマクロのジャンプラベルの間に<code>0x00 0x00 revert</code>を挿入して、次のようにします。</p> <div class="language-huff extra-class"><pre class="language-text"><code>#define macro MAIN() = {
+    0x00 calldataload 0xE0 shr
+
+    dup1 __FUNC_SIG(returnOne) eq returnOneJump jumpi
+    dup1 __FUNC_SIG(returnTwo) eq returnTwoJump jumpi
+
+    0x00 0x00 revert
+
+    returnTwo:
+        RETURN_TWO()
+    returnOne:
+        RETURN_ONE()
+}
+</code></pre></div><p>ハフ契約書を書くときは、この動作に注意してください。特に管理機能を扱うときは、<code>SET_OWNER()</code>マクロに遭遇すると、誰でもあなたの契約書をコントロールできるようになる可能性があります。ハフの「継承」パターンで使われるマクロ呼び出しロジックを飛び越える、より高度な方法がありますが、それは別のセクションで説明します。</p> <h2 id="binary-search-dispatching"><a href="#binary-search-dispatching" class="header-anchor">#</a> Binary Search Dispatching</h2> <p>関数ディスパッチングのもう一つの方法は、正しいセレクタを見つけるためにバイナリサーチを行うことです。これは、ディスパッチコストをより予測しやすく、安定させることができるため、 多くの関数を持つコントラクトに最適です (<code>if esle</code> チェーンのすべての分岐をチェックする必要はありません)。この方法では、関数セレクタをケチャック順に並べ、目的の関数に到達するまで、いくつかのジャンプポイントを軸に回転させます。ジャンプポイントの数は自由です。ジャンプポイントを増やせば増やすほど、ジャンプの値段は安定しますが、比較のためのガソリン代に注意が必要です。一般に、各スプリットには16〜18バイトのコードが追加されます（各ピボットポイントからジャンプがあることを忘れないでください）。</p> <p>この方法を実行するには、関数セレクタを手作業で計算し、順番を決める必要があります。しかし、心配はいりません。これはスクリプトで簡単に行うことができます。</p> <p>ここでは、バイナリ検索ディスパッチの実装例を示します。</p> <div class="language-huff extra-class"><pre class="language-text"><code>
+// Define Interface
+#define function allowance(address,address) view returns (uint256)
+#define function approve(address,uint256) nonpayable returns ()
+#define function balanceOf(address) view returns (uint256)
+#define function DOMAIN_SEPARATOR() view returns (bytes32)
+#define function nonces(address) view returns (uint256)
+#define function permit(address,address,uint256,uint256,uint8,bytes32,bytes32) nonpayable returns ()
+#define function totalSupply() view returns (uint256)
+#define function transfer(address,uint256) nonpayable returns ()
+#define function transferFrom(address,address,uint256) nonpayable returns ()
+#define function decimals() nonpayable returns (uint256)
+#define function name() nonpayable returns (string)
+#define function symbol() nonpayable returns (string)
+
+// Function Dispatching
+#define macro MAIN() = takes (1) returns (1) {
+    // Identify which function is being called.
+    // [func sig]
+    0x00 calldataload 0xE0 shr
+
+    // The function selector of the pivot (number of selectors / 2)
+    dup1 __FUNC_SIG(balanceOf) lt pivot0 jumpi
+
+        // pivot 2
+        dup1 __FUNC_SIG(totalSupply) lt pivot00 jumpi
+
+            // 1
+            dup1 __FUNC_SIG(name)               eq nameJump             jumpi
+
+            // 2
+            dup1 __FUNC_SIG(approve)            eq approveJump          jumpi
+
+            // 3
+            dup1 __FUNC_SIG(totalSupply)        eq totalSupplyJump      jumpi
+
+            not_found jump
+
+        pivot00:
+
+            // 4
+            dup1 __FUNC_SIG(transferFrom)       eq transferFromJump     jumpi
+
+            // 5
+            dup1 __FUNC_SIG(decimals)           eq decimalsJump         jumpi
+
+            // 6
+            dup1 __FUNC_SIG(DOMAIN_SEPARATOR)   eq domainSeparatorJump  jumpi
+
+            not_found jump
+
+    pivot0:
+
+        dup1 __FUNC_SIG(symbol) lt pivot11 jumpi
+
+
+            // 7
+            dup1 __FUNC_SIG(balanceOf)          eq balanceOfJump        jumpi
+
+            // 8
+            dup1 __FUNC_SIG(nonces)             eq noncesJump           jumpi
+
+            // 9
+            dup1 __FUNC_SIG(symbol)             eq symbolJump           jumpi
+
+            not_found jump
+
+        pivot11:
+
+            // 10
+            dup1 __FUNC_SIG(transfer)           eq transferJump         jumpi
+
+            // 11
+            dup1  __FUNC_SIG(permit)             eq permitJump           jumpi
+
+            // 12
+            dup1 __FUNC_SIG(allowance)          eq allowanceJump        jumpi
+
+    not_found:
+
+    // Revert if no match is found.
+    0x00 dup1 revert
+
+    allowanceJump:
+        ALLOWANCE()
+    approveJump:
+        APPROVE()
+    balanceOfJump:
+        BALANCE_OF()
+    decimalsJump:
+        DECIMALS()
+    domainSeparatorJump:
+        DOMAIN_SEPARATOR()
+    nameJump:
+        NAME()
+    noncesJump:
+        NONCES()
+    permitJump:
+        PERMIT()
+    symbolJump:
+        SYMBOL()
+    totalSupplyJump:
+        TOTAL_SUPPLY()
+    transferFromJump:
+        TRANSFER_FROM()
+    transferJump:
+        TRANSFER()
+}
+</code></pre></div><h2 id="fallback-functions"><a href="#fallback-functions" class="header-anchor">#</a> Fallback functions</h2> <p>solidityでは、fallbackとreceiveという2つの特殊な関数があります。どちらもハフで実装するのは比較的簡単です。</p> <p>フォールバックを実装するには、ディスパッチロジックの末尾にマクロを配置するだけです。例えば、次のフォールバック関数は常に値1を返します。</p> <div class="language-huff extra-class"><pre class="language-text"><code>#define macro FALLBACK() = {
+    0x01 0x00 mstore
+    0x20 0x00 return
+}
+</code></pre></div><p>フォールバックとしてこれを実装するには、スイッチケースを使い切った後にこれを投げるだけでよい。</p> <div class="language-huff extra-class"><pre class="language-text"><code>#define macro MAIN() = takes (1) returns (1) {
+    // Identify which function is being called.
+    // [func sig]
+    0x00 calldataload 0xE0 shr
+
+    dup1 __FUNC_SIG(permit)             eq permitJump           jumpi
+
+    ...
+
+    dup1 __FUNC_SIG(approve)            eq approveJump          jumpi
+
+    FALLBACK()
+
+   permitJump:
+        PERMIT()
+
+    ...
+
+    approveJump:
+        APPROVE()
+}
+</code></pre></div><p>フォールバックマクロとレシーブマクロの両方を実装したい場合は、以下のようにすることができます。</p> <div class="language-huff extra-class"><pre class="language-text"><code>#define macro MAIN() = takes (1) returns (1) {
+    // Identify which function is being called.
+    // [func sig]
+    0x00 calldataload 0xE0 shr
+
+    dup1 __FUNC_SIG(permit)             eq permitJump           jumpi
+
+    ...
+
+    dup1 __FUNC_SIG(approve)            eq approveJump          jumpi
+
+    # Jump into the receive function if msg.value is not zero
+    callvalue receive jumpi
+
+    FALLBACK()
+
+    receive:
+        RECEIVE()
+
+    permitJump:
+        PERMIT()
+
+    ...
+
+    approveJump:
+        APPROVE()
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/huff-docs/tutorial/simple-storage/" class="prev">
+        Simple Storage
+      </a></span> <span class="next"><a href="/huff-docs/tutorial/huff-testing/">
+        Testing Huff with Foundry
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/huff-docs/assets/js/app.52368d7d.js" defer></script><script src="/huff-docs/assets/js/2.da23fb4f.js" defer></script><script src="/huff-docs/assets/js/21.cea4001d.js" defer></script>
+  </body>
+</html>

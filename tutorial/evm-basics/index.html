@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Understanding the EVM | Huff Language</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="Documentation for the Huff Language">
+    <meta name="theme-color" content="#c70202">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/huff-docs/assets/css/0.styles.119aef57.css" as="style"><link rel="preload" href="/huff-docs/assets/js/app.52368d7d.js" as="script"><link rel="preload" href="/huff-docs/assets/js/2.da23fb4f.js" as="script"><link rel="preload" href="/huff-docs/assets/js/20.a0343151.js" as="script"><link rel="prefetch" href="/huff-docs/assets/js/10.10b20d65.js"><link rel="prefetch" href="/huff-docs/assets/js/11.0a86e14c.js"><link rel="prefetch" href="/huff-docs/assets/js/12.dc56caf4.js"><link rel="prefetch" href="/huff-docs/assets/js/13.d80e3d66.js"><link rel="prefetch" href="/huff-docs/assets/js/14.f739287c.js"><link rel="prefetch" href="/huff-docs/assets/js/15.1d27754b.js"><link rel="prefetch" href="/huff-docs/assets/js/16.b8ce2f87.js"><link rel="prefetch" href="/huff-docs/assets/js/17.fc855309.js"><link rel="prefetch" href="/huff-docs/assets/js/18.cb791716.js"><link rel="prefetch" href="/huff-docs/assets/js/19.e1225b3f.js"><link rel="prefetch" href="/huff-docs/assets/js/21.cea4001d.js"><link rel="prefetch" href="/huff-docs/assets/js/22.bc6ece12.js"><link rel="prefetch" href="/huff-docs/assets/js/23.7475dd5b.js"><link rel="prefetch" href="/huff-docs/assets/js/24.eaa45c75.js"><link rel="prefetch" href="/huff-docs/assets/js/25.b5e7e06d.js"><link rel="prefetch" href="/huff-docs/assets/js/3.ccc119cc.js"><link rel="prefetch" href="/huff-docs/assets/js/4.0afa7f3a.js"><link rel="prefetch" href="/huff-docs/assets/js/5.75baa7dd.js"><link rel="prefetch" href="/huff-docs/assets/js/6.5a1f7be2.js"><link rel="prefetch" href="/huff-docs/assets/js/7.bffed0f4.js"><link rel="prefetch" href="/huff-docs/assets/js/8.ef392763.js"><link rel="prefetch" href="/huff-docs/assets/js/9.836eefc0.js">
+    <link rel="stylesheet" href="/huff-docs/assets/css/0.styles.119aef57.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/huff-docs/" class="home-link router-link-active"><!----> <span class="site-name">Huff Language</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/huff-docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/huff-docs/get-started/overview/" class="nav-link">
+  Get Started
+</a></div><div class="nav-item"><a href="/huff-docs/tutorial/overview/" class="nav-link">
+  Tutorials
+</a></div><div class="nav-item"><a href="/huff-docs/style-guide/overview/" class="nav-link">
+  Style Guide
+</a></div><div class="nav-item"><a href="/huff-docs/resources/overview/" class="nav-link">
+  Resources
+</a></div><div class="nav-item"><a href="/huff-docs/contribute/overview/" class="nav-link">
+  Contribute
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/huff-docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/huff-docs/get-started/overview/" class="nav-link">
+  Get Started
+</a></div><div class="nav-item"><a href="/huff-docs/tutorial/overview/" class="nav-link">
+  Tutorials
+</a></div><div class="nav-item"><a href="/huff-docs/style-guide/overview/" class="nav-link">
+  Style Guide
+</a></div><div class="nav-item"><a href="/huff-docs/resources/overview/" class="nav-link">
+  Resources
+</a></div><div class="nav-item"><a href="/huff-docs/contribute/overview/" class="nav-link">
+  Contribute
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Tutorials</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/huff-docs/tutorial/overview/" class="sidebar-link">Overview</a></li><li><a href="/huff-docs/tutorial/evm-basics/" aria-current="page" class="active sidebar-link">Understanding the EVM</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/evm-basics/#technical" class="sidebar-link">Technical</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/evm-basics/#the-stack" class="sidebar-link">The Stack</a></li><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/evm-basics/#memory-and-calldata" class="sidebar-link">Memory and Calldata</a></li><li class="sidebar-sub-header"><a href="/huff-docs/tutorial/evm-basics/#storage" class="sidebar-link">Storage</a></li></ul></li></ul></li><li><a href="/huff-docs/tutorial/the-basics/" class="sidebar-link">The Basics</a></li><li><a href="/huff-docs/tutorial/hello-world/" class="sidebar-link">Hello, world!</a></li><li><a href="/huff-docs/tutorial/simple-storage/" class="sidebar-link">Simple Storage</a></li><li><a href="/huff-docs/tutorial/function-dispatching/" class="sidebar-link">Function Dispatching</a></li><li><a href="/huff-docs/tutorial/huff-testing/" class="sidebar-link">Testing Huff with Foundry</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="understanding-the-evm"><a href="#understanding-the-evm" class="header-anchor">#</a> Understanding the EVM</h1> <p>Ethereum Virtual Machine、略してEVMは、Ethereumの頭脳である。その名の通り計算エンジンであり、Microsoftの.NET Frameworkの仮想マシンや、Javaなど他のバイトコードコンパイルされたプログラミング言語のインタプリタに似ている。</p> <p>EVMは、スマートコントラクトの展開と実行を制御するEthereumプロトコルの一部です。これは、数百万の実行可能なもの（コントラクト）を持つグローバルな分散型コンピュータに例えることができ、それぞれが独自の永久的なデータストアを備えています。</p> <p align="center"><img src="/evm.png" width="640px"></p> <figcaption align="center"><b>Fig.1 - EVM from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption> <h2 id="technical"><a href="#technical" class="header-anchor">#</a> Technical</h2> <blockquote><p><em><strong>NOTE:</strong></em> このチュートリアルは、Solidity にある程度慣れていて、したがってコントラクト、ステート、外部呼び出しなど、Ethereum 開発の基本を理解していることを前提にしています...</p></blockquote> <h3 id="the-stack"><a href="#the-stack" class="header-anchor">#</a> The Stack</h3> <p>EVMは、1024項目の深さを持つスタックマシンとして動作します。各アイテムは256ビットワード（32バイト）で、これは256ビット暗号との互換性から選択されました。EVMはスタックベースのVMであるため、通常、データを先頭にPUSHし、データをPOPし、ADDやMULなどの命令を先頭にあるいくつかの値に適用します。</p> <p align="center"><img src="https://i.imgur.com/q6iEY7Z.png" width="640px"></p> <figcaption align="center"><b>Fig.2 - Push/Pop Example from <i> &quot;Playdate with the EVM&quot;</i> by Femboy Capital</b></figcaption> <p>以下は、スタックへのプッシュとスタックからのポップの例です。左側では、ある要素 <code>e</code> がスタックの一番上に押し出され、右側では <code>e</code> がそこから取り除かれる、つまり「ポップ」される様子を示しています。</p> <p><code>e</code> はスタックにプッシュされた最後の要素ですが (その前に a, b, c, d があります)、pop が発生すると最初に削除される要素であることに注意することが重要です。これは、スタックは <strong>LIFO</strong> (Last In, First Out) の原則に従っており、最後に追加された要素が、最初に削除される要素になるためです。</p> <p align="center"><img src="https://i.imgur.com/SYJBUBS.png" width="640px"></p> <figcaption align="center"><b>Fig.3 - MUL Opcode Example from <i> &quot;Playdate with the EVM&quot;</i> by Femboy Capital</b></figcaption> <p>オペコードはしばしばスタック要素を入力として使用し、常に先頭の（最も最近追加された）要素を取 ります。上の例では、<code>a</code>、<code>b</code>、<code>c</code>、<code>d</code> からなるスタックから始めます。<code>MUL</code> オペコード（スタックの一番上にある 2 つの値を乗算する）を使用すると、<code>c</code> と <code>d</code> はスタックからポップされ、その積に置き換えられます。</p> <h3 id="memory-and-calldata"><a href="#memory-and-calldata" class="header-anchor">#</a> Memory and Calldata</h3> <p>EVMでは、メモリは拡張可能なバイトアドレスの1次元配列と考えることができます。最初は空っぽです。
+読み出し、書き込み、拡張にガスがかかります。一方、Calldataは非常によく似ていますが、拡張や上書きができません。
+拡張や上書きができません。これはトランザクションのペイロードに含まれ、コントラクトコールの入力として機能する。</p> <p>256ビットロード＆ストア。</p> <ul><li><p>メモリやcalldataからの読み込みは、常に与えられたポインタの後の最初の256ビット（32バイトまたは1ワード）をアクセスします。</p></li> <li><p>メモリへの格納は、常に与えられたポインタの後の最初の256ビット（32バイトまたは1ワード）にバイトを書き込みます。</p></li></ul> <p>メモリとcalldataは永続的ではなく、揮発性です。
+忘れ去られる。</p> <p align="center"><img src="/memory.png" width="640px"></p> <figcaption align="center"><b>Fig.4 - Memory from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption> <h4 id="mnenomic-example"><a href="#mnenomic-example" class="header-anchor">#</a> Mnenomic Example</h4> <div class="language-plaintext extra-class"><pre class="language-plaintext"><code>PUSH2 0x1000 // [0x1000]
+PUSH1 0x00   // [0x00, 0x1000]
+MSTORE       // []
+// Memory: 0x0000000000000000000000000000000000000000000000000000000000001000
+
+PUSH1 0x05   // [0x05]
+PUSH1 0x20   // [0x20, 0x05]
+MSTORE       // []
+// Memory: 0x00000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000005
+
+PUSH1 0x00
+MLOAD        // [0x1000]
+PUSH1 0x20
+MLOAD        // [0x05, 0x1000]
+</code></pre></div><h3 id="storage"><a href="#storage" class="header-anchor">#</a> Storage</h3> <p>Ethereum上のすべてのコントラクトアカウントは、Key-Valueストア内にデータを永続的に保存することができます。コントラクトストレージ
+トランザクションが実行された後、すべてのイーサリアムノードはそれに応じてコントラクトのストレージトライを更新しなければならないため、メモリよりも読み取りと書き込みに多くのコストがかかります。
+それに応じてコントラクトのストレージトライを更新する必要があるためです。</p> <p>メモリでやったような1次元の大きな配列を想像するのではなく、256bitのようなストレージを考えることができる→「256bit Map
+256ビットマップのように考えることができます。32バイトのキーサイズにより、合計<code>2^256</code>個のストレージスロットが存在します。</p> <p align="center"><img src="/contract_acc.png" width="320px"></p> <figcaption align="center"><b>Fig.5 - Contract Account from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption> <h4 id="mnenomic-example-2"><a href="#mnenomic-example-2" class="header-anchor">#</a> Mnenomic Example</h4> <div class="language-plaintext extra-class"><pre class="language-plaintext"><code>PUSH32 0xdEaDbEeFdEaDbEeFdEaDbEeFdEaDbEeFdEaDbEeFdEaDbEeFdEaDbEeFdEaDbEeF // [dead_addr]
+PUSH1 0x00                                                                // [0x00, dead_addr]
+SSTORE                                                                    // []
+
+PUSH32 0xC0FFEE0000000000000000000000000000000000000000000000000000000000 // [coffee_addr]
+PUSH1 0x01                                                                // [0x01, coffee_addr]
+SSTORE                                                                    // []
+
+// Storage:
+// 0x00 -&gt; deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+// 0x01 -&gt; c0ffee0000000000000000000000000000000000000000000000000000000000
+
+PUSH1 0x00
+SLOAD                                                                     // [dead_addr]
+PUSH1 0x01
+SLOAD                                                                     // [coffee_addr, dead_addr]
+</code></pre></div><hr> <p>EVMの詳細については、ドキュメントの<a href="/huff-docs/resources/overview/#other-resources">Resources</a>セクションを参照してください。</p> <p>もし、この中に混乱するものがあっても、心配しないでください。EVMについての本を読めば基本はわかりますが、実際にアセンブリを書くことが、EVMのコツをつかむ一番の方法です（そして一番楽しいです）。それでは、簡単なプロジェクトを見てみましょう。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/huff-docs/tutorial/overview/" class="prev">
+        Overview
+      </a></span> <span class="next"><a href="/huff-docs/tutorial/the-basics/">
+        The Basics
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/huff-docs/assets/js/app.52368d7d.js" defer></script><script src="/huff-docs/assets/js/2.da23fb4f.js" defer></script><script src="/huff-docs/assets/js/20.a0343151.js" defer></script>
+  </body>
+</html>
