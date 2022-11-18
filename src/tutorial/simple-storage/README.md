@@ -1,25 +1,24 @@
-
 # Simple Storage
-So far the two examples we have looked at have explored slicing bytes from calldata, storing in memory and returning values. Now we're going to address the missing piece of the puzzle that all EVM devs fear, storage.
+これまでの 2 つの例では、calldata からバイトを切り出し、メモリに格納し、値を返すということを検討してきました。次に、すべてのEVM開発者が恐れているパズルの欠けた部分、ストレージに取り組みます。
 
 ## Storage in Huff
-Thankfully working with storage isn't too complicated, Huff abstracts keeping track of storage variables through the `FREE_STORAGE_POINTER()` keyword. An example of which will be shown below:
+Huffは`FREE_STORAGE_POINTER()`キーワードを使ってストレージ変数の追跡を抽象化しているので、ストレージを扱うのはそれほど複雑ではありません。以下にその例を示します。
 
 ```
 #define constant STORAGE_SLOT0 = FREE_STORAGE_POINTER()
 #define constant STORAGE_SLOT1 = FREE_STORAGE_POINTER()
 #define constant STORAGE_SLOT2 = FREE_STORAGE_POINTER()
 ```
-
-Storage slots are simply keys in a very large array where contracts keep their state. The compiler will assign `STORAGE_SLOT0` the value `0`, `STORAGE_SLOT1` the value `1` etc. at compile time. Throughout your code you just reference the storage slots the same way constants are used in any language.
+ストレージスロットは、コントラクトがその状態を保持する非常に大きな配列の単なるキーです。コンパイラはコンパイル時に`STORAGE_SLOT0`に`0`、`STORAGE_SLOT1`に`1`などの値を代入します。コード全体では、どの言語でも定数が使われるのと同じように、ストレージスロットを参照するだけです。
 
 ## Setting storage
+まず、`FREE_STORAGE_POINTER()`キーワードを使用して、ストレージスロットを表す定数を定義します。
 
-First define the constant that will represent your storage slot using the `FREE_STORAGE_POINTER()` keyword.
 ```
 #define constant VALUE = FREE_STORAGE_POINTER()
 ```
-We can then reference this slot throughout the code by wrapping it in square brackets - like so `[VALUE]`. The example below demonstrates a macro that will store the value 5 in the slot [VALUE].
+`[VALUE]`のように角括弧で囲むことで、コード全体でこのスロットを参照することができます。以下の例では、スロット [VALUE] に値 5 を格納するマクロを例示しています。
+
 ```
 #define macro SET_5() = takes(0) returns(0) {
     0x5             // [0x5] 
@@ -27,11 +26,11 @@ We can then reference this slot throughout the code by wrapping it in square bra
     sstore          // []
 }
 ```
-
-Test this out interactively [here](https://www.evm.codes/playground?unit=Wei&codeType=Bytecode&code='6005600055'_) ([VALUE] has been hardcoded to 0)
+インタラクティブにテストする [here](https://www.evm.codes/playground?unit=Wei&codeType=Bytecode&code='6005600055'_) ([VALUE]は0にハードコードされています)
 
 ## Reading from storage
-Now you know how to write to storage, reading from storage is trivial. Simply replace `sstore` with `sload` and your ready to go. We are going to extend our example above to both write and read from storage.
+これで、ストレージへの書き込み方法がわかったので、ストレージからの読み出しは簡単です。`sstore` を `sload` に置き換えるだけで、準備は完了です。これから、上の例を拡張して、ストレージへの書き込みと読み込みの両方を行うことにします。
+
 ```
 #define macro SET_5_READ_5() = takes(0) returns(0) {
     0x5
@@ -42,24 +41,23 @@ Now you know how to write to storage, reading from storage is trivial. Simply re
     sload
 }
 ```
-
-Nice! Once again you can test this out over at [evm.codes](https://www.evm.codes/playground?unit=Wei&codeType=Bytecode&code='6005600055600054'_). Notice how 5 reappears on the stack after executing the `sload` instruction.
+いいねーもう一度、[evm.codes](https://www.evm.codes/playground?unit=Wei&codeType=Bytecode&code='6005600055600054'_) でテストしてみましょう。`sload` 命令を実行した後、スタック上に 5 が再び現れることに注目してください。
 
 ## Simple Storage Implementation
-Now we can read and write to storage, lets attempt the famous SimpleStorage starter contract from remix.
+これでストレージへの読み書きができるようになったので、remix の有名な SimpleStorage スターターコントラクトを試してみましょう。
 
-First off, lets create our interface:
+まず、インターフェイスを作成しましょう。
+
 ```
 #define function setValue(uint256) nonpayable returns ()
 #define function getValue() nonpayable returns (uint256)
 ```
+次に、ストレージスロットを定義します。
 
-Now lets define our storage slots:
 ```
 #define constant VALUE = FREE_STORAGE_POINTER()
 ```
-
-Onto the fun part, the logic. Remember from the addTwo example we can read calldata in 32 byte chunks using the `calldataload` opcode, lets use that knowledge to get read our uint256.
+さて、いよいよロジックです。addTwoの例で、`calldataload`オペコードを使って32バイトのチャンクでデータを読むことができたことを思い出してください。
 
 ```
 #define macro SET_VALUE() = takes(0) returns(0) {
@@ -72,10 +70,10 @@ Onto the fun part, the logic. Remember from the addTwo example we can read calld
     sstore          // []
 }
 ```
+これまでの例題を終えて、Huff の書き方がわかってきたと思います。このパターンは、独自のコントラクトを書くときに、calldata から値を読み、メモリやストレージに値を格納するときに非常によく使われます。
 
-After completing the previous examples we hope that writing Huff is all starting to click! This pattern will be extremely common when writing your own contracts, reading from calldata then storing values in memory or storage.
+次は、格納されている値の読み出しです。
 
-Next up is reading the stored value. 
 ```
 #define macro GET_VALUE() = takes(0) returns(0) {
     // Read uint256 from storage
@@ -92,9 +90,10 @@ Next up is reading the stored value.
     return          // []
 }
 ```
-First off, we read the storage value using a similar technique to our prior example. Prepare the return value by storing it in memory. Then return the value from memory. It's all coming together!
+まず、先ほどの例と同様の手法で記憶値を読み取ります。戻り値をメモリに格納して準備します。そして、その値をメモリから返します。まとまってきましたね〜。
 
-To call our new macros from external functions we have to create a dispatcher! 
+外部関数から新しいマクロを呼び出すには、ディスパッチャを作成する必要があります。
+
 ```
 #define macro MAIN() = takes(0) returns(0) {
     
@@ -113,8 +112,8 @@ To call our new macros from external functions we have to create a dispatcher!
     0x00 0x00 revert
 }
 ```
+今度は全部一緒に!
 
-Now all of it together!
 ```
 // Interface
 #define function setValue(uint256) nonpayable returns ()
@@ -169,5 +168,5 @@ Now all of it together!
     0x00 0x00 revert
 }
 ```
+おめでとうございます。あなたは、Huffでコントラクトを書くための殻を乗り越えたのです。次のステップとしては、addTwo, "Hello, World!", SimpleStorageでこれまでに学んだことを、[Foundry](https://docs.huff.sh/tutorial/huff-testing/)のようなテストフレームワークに取り入れることをお勧めします。それでは、ハッキングを楽しんでください。
 
-Congratulations! You've made it through the crust of writing contracts in Huff. For your next steps we recommend taking what you have learned so far in addTwo, "Hello, World!" and SimpleStorage into a testing framework like [Foundry](https://docs.huff.sh/tutorial/huff-testing/). Happy hacking!

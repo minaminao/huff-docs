@@ -1,20 +1,19 @@
 # Hello, world!
-
-Note: This section is a continuation of ['The Basics'](/tutorial/the-basics/). If you have not read it yet we recommend you take a look at it before continuing!
+注：このセクションは、['The Basics'](/tutorial/the-basics/)の続きです。もし、まだお読みになっていないようでしたら、続ける前にご覧になることをお勧めします。
 
 ---
-
-Within ['The Basics'](/tutorial/the-basics/) we mentioned how `"Hello, world!"` is quite an advanced concept for Huff. The reason being that we need to have an understanding of how strings are encoded in the EVM.
+['The Basics'](/tutorial/the-basics/)の中で、`"Hello, world!"`がハフにとってかなり高度な概念であることを述べました。というのも、EVMの中で文字列がどのようにエンコードされるかを理解しておく必要があるからです。
 
 ## Primer: ABI Encoding
+文字列は動的な型であるため、`"Hello, world!"` (`0x48656c6c6f2c20776f726c6421`) の UTF-8 値を返すというような単純なものではありません。ABI規格では、動的型は3つの部分に分けてエンコードされ、それぞれが1ワード（32バイト）のメモリを使用します。
 
-As strings are dynamic types it is not as simple as returning the UTF-8 values for `"Hello, world!"` (`0x48656c6c6f2c20776f726c6421`). In the ABI standard, dynamic types are encoded in 3 parts, each which takes a full word (32 bytes) of memory.
+1. ダイナミックデータのオフセット。(ダイナミックデータ開始へのポインタ, uint256)
 
-1. The offset of the dynamic data. (pointer to the start of the dynamic data, uint256)
-2. The length of the dynamic data. (uint256)
-3. The values of the dynamic data. (dynamic length)
+2. ダイナミックデータの長さ。(uint256)
 
-Each part will look as follows for the string `"Hello, world!"`:
+3. ダイナミックデータの値です。（動的長さ）
+
+各パーツは、文字列`"Hello, world!"`に対して以下のようになります。
 
 ```
 Memory loc      Data
@@ -22,10 +21,8 @@ Memory loc      Data
 0x20            000000000000000000000000000000000000000000000000000000000000000d // The length of "Hello, world!" in bytes
 0x40            48656c6c6f2c20776f726c642100000000000000000000000000000000000000 // Value "Hello, world!"
 ```
-
 ## Implementation
-
-The following `MAIN` macro steps through this encoding in a clear way.
+次の`MAIN`マクロは、このエンコードをわかりやすくステップアップするものです。
 
 ```
 
@@ -52,23 +49,21 @@ The following `MAIN` macro steps through this encoding in a clear way.
 }
 
 ```
-
-Have a look how memory is set and what is returned interactively with [evm.codes playground](https://www.evm.codes/playground?unit=Wei&codeType=Mnemonic&code='v20~0z~0d~2zws32t48656c6c6f2c20776f726c6421yyyyyyu~4z~60~uwRETURN'~wvz0wMSTOREwyuuuw%5Cnvs1tu00t%200xsPUSH%01stuvwyz~_) for this example.
+この例では、[evm.codes playground](https://www.evm.codes/playground?unit=Wei&codeType=Mnemonic&code='v20~0z~0d~2zws32t48656c6c6f2c20776f726c6421yyyyyyu~4z~60~uwRETURN'~wvz0wMSTOREwyuuuw%5Cnvs1tu00t%200xsPUSH%01stuvwyz~_)でどのようにメモリが設定され、何が返されるかをインタラクティブに見ることができます。
 
 ## Advanced topic - The Seaport method of returning strings
+前の例では、3つの隣接するワード（それぞれ32バイト）がメモリに保存されていることに注意してください。1番目のワードはオフセットで、2番目のワードは長さです。すべての値がそうであるように、これら2つの単語は左詰めにされています。3番目のワードはバイトなので右詰めにされています。メモリスキーマでは、長さとバイトは隣り合っていることに注意してください。長さ "0d "はメモリロケーション0x3Fにあり、"Hello, world!"の最初のバイト0x48は0x40に格納されています。
 
-Notice in the previous example that 3 adjacent words (32 bytes each) are being stored in memory. The 1st word is the offset and the 2nd word is the length. Both of these are left padded as all values are. The 3rd word is right padded because its bytes. Notice the length and the bytes are adjacent to each other in the memory schema. The length, "0d" is in memory location 0x3F and the first byte of "Hello, world!", 0x48, is stored at 0x40.
-
-If we take the length (`0x0d`) and the bytes (`0x48656c6c6f2c20776f726c6421`), and concatenate them, we would get: `0x0d48656c6c6f2c20776f726c6421` which becomes left padded value of:
+長さ(`0x0d`)とバイト数(`0x48656c6c6f2c20776f726c6421`)をとって連結すると、次のようになる。`0x0d48656c6c6f2c20776f726c6421`となり、左詰めの値となる。
 
 ```
 0x000000000000000000000000000000000000000d48656c6c6f2c20776f726c6421
 ```
+ここで、2番目のワードを`0x20`から始めるのではなく、13バイト分オフセットすると（`0x20`の代わりに`0x2d`から始める）、`0d`が2番目のワードの右端（最下位）ビット（位置0x3F）に収まり、残りのバイトは3番目のワードの左端（最上位）バイト（位置0x40）からすぐに始まるように整列します。
 
-Now, instead of starting the second word at `0x20`, if we offset that by 13 bytes (starting at `0x2d` instead of `0x20`) then it lines up so that the `0d` falls in the right most (lowest) bits of the second word (location 0x3F) and the remaining bytes start immediately in the first leftmost (highest) byte of the third word (location 0x40).
+これはハフではよくある手法で、[Seaport's \_name() function](https://github.com/ProjectOpenSea/seaport/blob/fb1c3bf4c25a32ae90f776652a8b2b07d5df52cf/contracts/Seaport.sol#L95-L108)でも話題になった。
 
-This is a common technique in Huff and was also made popular by [Seaport's \_name() function](https://github.com/ProjectOpenSea/seaport/blob/fb1c3bf4c25a32ae90f776652a8b2b07d5df52cf/contracts/Seaport.sol#L95-L108).
-
-Here is a diagram illustrating the "Seaport" method using the string "TKN":
+ここでは、「TKN」という文字列を使った「Seaport」方式を図解しています。
 
 ![The "Seaport" method](../../.vuepress/public/Seaport.png)
+

@@ -1,23 +1,30 @@
 # Overview
-
 ## Introduction
+Ethereum Virtual Machine (EVM)についてもっと学びたいと考えているスマートコントラクト開発者のための初心者向けチュートリアルへようこそ。このチュートリアルは、すでにスマートコントラクトに慣れ親しみ、Solidity や Vyper などのスマートコントラクト言語でのプログラミング経験がある開発者を対象としています。
 
-Welcome to our beginner's tutorial for smart contract developers interested in learning more about the Ethereum Virtual Machine (EVM). This tutorial is aimed towards developers who are already familiar with smart contracts and have had some experience programming in a smart contract language such as Solidity or Vyper.
+このチュートリアルでは、以下を取り上げます。
 
-In this tutorial, we'll be covering:
+- イーサリアム仮想マシンの基礎知識
 
-- The basics of the Ethereum Virtual Machine
-- The basics of writing assembly in Huff
-- "Hello, World! in assembly
-- Simple Storage in assembly
-- Setting up a Foundry environment to write, test, and deploy your code
-- Deploying your contracts to various Ethereum testnets
+- Huffでアセンブリを書くための基本的なこと
 
-This tutorial loosely follows the [original Hardhat tutorial](https://hardhat.org/tutorial/).
+- "ハロー、ワールド！"をアセンブリで
 
-To follow this tutorial you must:
+- 組立式シンプルストレージ
 
-- Be proficient in [Solidity/Vyper](https://ethereum.org/en/developers/docs/smart-contracts/languages/).
-- Understand how [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/#:~:text=Smart%20contracts%20are%20a%20type,network%20and%20run%20as%20programmed.) work.
-- Be competent using [git](https://git-scm.com/doc).
-- Have at least read the [Foundry](https://github.com/foundry-rs/foundry) docs or developed contracts with it.
+- コードを書き、テストし、デプロイするためのFoundry環境のセットアップ
+
+- コントラクトを様々なEthereumテストネットにデプロイする
+
+このチュートリアルは、[original Hardhat tutorial](https://hardhat.org/tutorial/)にゆるやかに準拠しています。
+
+このチュートリアルに従うには、次のことが必要です。
+
+- [Solidity/Vyper](https://ethereum.org/en/developers/docs/smart-contracts/languages/)に習熟していること。
+
+- [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/#:~:text=Smart%20contracts%20are%20a%20type,network%20and%20run%20as%20programmed.)の仕組みを理解する。
+
+- [git](https://git-scm.com/doc)を使いこなすこと。
+
+- 少なくとも[Foundry](https://github.com/foundry-rs/foundry)のドキュメントを読んだり、契約を結んだりしたことがある。
+

@@ -1,46 +1,48 @@
 # Understanding the EVM
+Ethereum Virtual Machine、略してEVMは、Ethereumの頭脳である。その名の通り計算エンジンであり、Microsoftの.NET Frameworkの仮想マシンや、Javaなど他のバイトコードコンパイルされたプログラミング言語のインタプリタに似ている。
 
-The Ethereum Virtual Machine, or EVM for short, is the brains behind Ethereum. It's a computation engine, as the name suggests, similar to the virtual machines in Microsoft's.NET Framework or interpreters for other bytecode-compiled programming languages like Java.
-
-The EVM is the part of the Ethereum protocol that controls the deployment and execution of smart contracts. It can be compared to a global decentralized computer with millions of executable things (contracts), each with its own permanent data store.
+EVMは、スマートコントラクトの展開と実行を制御するEthereumプロトコルの一部です。これは、数百万の実行可能なもの（コントラクト）を持つグローバルな分散型コンピュータに例えることができ、それぞれが独自の永久的なデータストアを備えています。
 
 <p align="center"><img src="/evm.png" width="640px"/></p>
+
 <figcaption align = "center"><b>Fig.1 - EVM from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption>
 
 ## Technical
-
-> **_NOTE:_** This tutorial assumes that you are somewhat familiar with Solidity and therefore understand the basics of Ethereum development, including contracts, state, external calls, etc...
+> ***NOTE:*** このチュートリアルは、Solidity にある程度慣れていて、したがってコントラクト、ステート、外部呼び出しなど、Ethereum 開発の基本を理解していることを前提にしています...
 
 ### The Stack
-
-The EVM runs as a stack machine with a depth of 1024 items. Each item is a 256 bit word (32 bytes), which was chosen due its compatibility with 256-bit encryption. Since the EVM is a stack-based VM, you typically PUSH data onto the top of it, POP data off, and apply instructions like ADD or MUL to the first few values that lay on top of it.
+EVMは、1024項目の深さを持つスタックマシンとして動作します。各アイテムは256ビットワード（32バイト）で、これは256ビット暗号との互換性から選択されました。EVMはスタックベースのVMであるため、通常、データを先頭にPUSHし、データをPOPし、ADDやMULなどの命令を先頭にあるいくつかの値に適用します。
 
 <p align="center"><img src="https://i.imgur.com/q6iEY7Z.png" width="640px"/></p>
+
 <figcaption align = "center"><b>Fig.2 - Push/Pop Example from <i> "Playdate with the EVM"</i> by Femboy Capital</b></figcaption>
 
-Here's an example of what pushing to and popping from the stack looks like. On the left, we see an element, `e`, being pushed to the top of stack and on the right, we see how `e` is removed or "popped" from it.
+以下は、スタックへのプッシュとスタックからのポップの例です。左側では、ある要素 `e` がスタックの一番上に押し出され、右側では `e` がそこから取り除かれる、つまり「ポップ」される様子を示しています。
 
-It's important to note that, while `e` was the last element to be pushed onto the stack (it is preceded by a, b, c, d), it is the first element to be removed when a pop occurs. This is because stacks follow the **LIFO** (Last In, First Out) principle, where the last element to be added is the first element to be removed.
+`e` はスタックにプッシュされた最後の要素ですが (その前に a, b, c, d があります)、pop が発生すると最初に削除される要素であることに注意することが重要です。これは、スタックは **LIFO** (Last In, First Out) の原則に従っており、最後に追加された要素が、最初に削除される要素になるためです。
 
 <p align="center"><img src="https://i.imgur.com/SYJBUBS.png" width="640px"/></p>
+
 <figcaption align = "center"><b>Fig.3 - MUL Opcode Example from <i> "Playdate with the EVM"</i> by Femboy Capital</b></figcaption>
 
-Opcodes will often use stack elements as input, always taking the top (most recently added) elements. In the example above, we start with a stack consisting of `a`, `b`, `c`, and `d`. If you use the `MUL` opcode (which multiplies the two values at the top of the stack), `c` and `d` get popped from the stack and replaced by their product.
+オペコードはしばしばスタック要素を入力として使用し、常に先頭の（最も最近追加された）要素を取 ります。上の例では、`a`、`b`、`c`、`d` からなるスタックから始めます。`MUL` オペコード（スタックの一番上にある 2 つの値を乗算する）を使用すると、`c` と `d` はスタックからポップされ、その積に置き換えられます。
 
 ### Memory and Calldata
+EVMでは、メモリは拡張可能なバイトアドレスの1次元配列と考えることができます。最初は空っぽです。
+読み出し、書き込み、拡張にガスがかかります。一方、Calldataは非常によく似ていますが、拡張や上書きができません。
+拡張や上書きができません。これはトランザクションのペイロードに含まれ、コントラクトコールの入力として機能する。
 
-In the EVM, memory can be thought of as an expandable, byte-addressed, 1 dimensional array. It starts out being empty,
-and it costs gas to read, write to, and expand it. Calldata on the other hand is very similar, but it is not able to be
-expanded or overwritten. It is included in the transaction's payload, and acts as input for contract calls.
+256ビットロード＆ストア。
 
-256 bit load & store:
-* Reading from memory or calldata will always access the first 256 bits (32 bytes or 1 word) after the given pointer.
-* Storing to memory will always write bytes to the first 256 bits (32 bytes or 1 word) after the given pointer.
+* メモリやcalldataからの読み込みは、常に与えられたポインタの後の最初の256ビット（32バイトまたは1ワード）をアクセスします。
 
-Memory and calldata are not persistent, they are volatile- after the transaction finishes executing,
-they are forgotten.
+* メモリへの格納は、常に与えられたポインタの後の最初の256ビット（32バイトまたは1ワード）にバイトを書き込みます。
+
+メモリとcalldataは永続的ではなく、揮発性です。
+忘れ去られる。
 
 <p align="center"><img src="/memory.png" width="640px"/></p>
+
 <figcaption align = "center"><b>Fig.4 - Memory from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption>
 
 #### Mnenomic Example
@@ -60,17 +62,16 @@ MLOAD        // [0x1000]
 PUSH1 0x20
 MLOAD        // [0x05, 0x1000]
 ```
-
 ### Storage
+Ethereum上のすべてのコントラクトアカウントは、Key-Valueストア内にデータを永続的に保存することができます。コントラクトストレージ
+トランザクションが実行された後、すべてのイーサリアムノードはそれに応じてコントラクトのストレージトライを更新しなければならないため、メモリよりも読み取りと書き込みに多くのコストがかかります。
+それに応じてコントラクトのストレージトライを更新する必要があるためです。
 
-All contract accounts on Ethereum are able to store data persistently inside of a key-value store. Contract storage 
-costs much more to read and write to than memory because after the transaction executes, all Ethereum nodes have to
-update the contract's storage trie accordingly.
-
-Instead of imagining a large 1 dimensional array like we did with memory, you can think of storage like a 256 bit ->
-256 bit Map. There are a total of `2^256` storage slots due to the 32 byte key size. 
+メモリでやったような1次元の大きな配列を想像するのではなく、256bitのようなストレージを考えることができる→「256bit Map
+256ビットマップのように考えることができます。32バイトのキーサイズにより、合計`2^256`個のストレージスロットが存在します。
 
 <p align="center"><img src="/contract_acc.png" width="320px"/></p>
+
 <figcaption align = "center"><b>Fig.5 - Contract Account from <i>Ethereum EVM Illustrated</i> by Takenobu T.</b></figcaption>
 
 #### Mnenomic Example
@@ -92,9 +93,8 @@ SLOAD                                                                     // [de
 PUSH1 0x01
 SLOAD                                                                     // [coffee_addr, dead_addr]
 ```
+---
+EVMの詳細については、ドキュメントの[Resources](../../resources/overview/#other-resources)セクションを参照してください。
 
-----
+もし、この中に混乱するものがあっても、心配しないでください。EVMについての本を読めば基本はわかりますが、実際にアセンブリを書くことが、EVMのコツをつかむ一番の方法です（そして一番楽しいです）。それでは、簡単なプロジェクトを見てみましょう。
 
-For more information on the EVM, see the [Resources](../../resources/overview/#other-resources) section of the docs.
-
-If any of this confuses you, don't worry! While reading about the EVM will teach you the basics, actually writing assembly serves as the best way to get the hang of it (and it's the most fun). Let's dive into some simple projects.
